@@ -1,0 +1,1 @@
+Projeto do jogo Pedra, Papel ou Tesoura. Desenvolvido com Java Script.

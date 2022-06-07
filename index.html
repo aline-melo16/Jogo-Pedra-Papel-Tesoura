@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Pedra, Papel ou Tesoura</title>
+</head>
+
+<body>
+
+
+<header>
+<h1 style="text-align:center;">Pedra,papel ou tesoura</h1>
+<h2 class="vencedor"></h2>
+<hr>
+</header>
+
+<div class="align">
+<div class="player-options">
+    <div><img opt="pedra" src="imagens/rock.png"/></div>
+    <div><img opt="papel" src="imagens/paper.png"/></div>
+    <div><img opt="tesoura" src="imagens/scisor.png"/></div>
+</div>
+
+<div class="enemy-options">
+    <div><img opt="pedra" src="imagens/rock.png"/></div>
+    <div><img opt="papel" src="imagens/paper.png"/></div>
+    <div><img opt="tesoura" src="imagens/scisor.png"/></div>
+</div>
+</div>
+
+<script>
+    var elementos = document.querySelectorAll('.player-options div > img');
+    var playerOpt = "";
+    var inimigoOpt = "";
+
+    function validarVitoria(){
+
+        let vencedor = document.querySelector('.vencedor');
+       
+        if(playerOpt == "papel"){
+
+            if(inimigoOpt == "papel"){
+                //Empate
+                vencedor.innerHTML = "Deu empate";
+            }else if(inimigoOpt == "tesoura"){
+                //Inimigo ganhou
+                vencedor.innerHTML = "GAME OVER";
+            }else if(inimigoOpt == "pedra"){
+                //Player ganhou
+                vencedor.innerHTML = "Você ganhou";
+            }
+        }
+
+        if(playerOpt == "tesoura"){
+
+        if(inimigoOpt == "papel"){
+            //Player ganhou
+            vencedor.innerHTML = "Você ganhou";
+        }else if(inimigoOpt == "tesoura"){
+            //Empate
+            vencedor.innerHTML = "Deu empate";
+        }else if(inimigoOpt == "pedra"){
+            //Inimigo ganhou
+            vencedor.innerHTML = "GAME OVER";
+        }
+        }
+
+        if(playerOpt == "pedra"){
+
+        if(inimigoOpt == "papel"){
+            //Inimigo ganhou
+            vencedor.innerHTML = "GAME OVER";
+        }else if(inimigoOpt == "tesoura"){
+            //Player ganhou
+           vencedor.innerHTML = "Você ganhou";
+        }else if(inimigoOpt == "pedra"){
+           //Empate
+           vencedor.innerHTML = "Deu empate";
+        }
+        }
+
+        
+    }
+
+
+    function resetInimigo(){
+        const enemyOptions = document.querySelectorAll('.enemy-options div');
+        for(var i = 0; i < enemyOptions.length; i++){
+
+            enemyOptions[i].childNodes[0].style.opacity = 0.3;
+        }
+    }
+
+    function inimigoJogar(){
+        let rand = Math.floor(Math.random()*3);
+
+        const enemyOptions = document.querySelectorAll('.enemy-options div');
+        resetInimigo();
+
+        for(var i = 0; i < enemyOptions.length; i++){
+            if(i == rand){
+                enemyOptions[i].childNodes[0].style.opacity = 1;
+                inimigoOpt = enemyOptions[i].childNodes[0].getAttribute('opt');
+            }
+        }
+
+      
+
+       validarVitoria();
+    };
+
+        function resetOpacityPlayer(){
+            for(var i = 0; i < elementos.length; i++){
+                elementos[i].style.opacity = 0.3;
+            }
+
+        }
+
+    for(var i = 0; i < elementos.length; i++){
+        elementos[i].addEventListener('click', function(t){
+            resetOpacityPlayer();
+           t.target.style.opacity = 1;
+           playerOpt = t.target.getAttribute('opt');
+
+           inimigoJogar();
+
+        });
+    }
+</script>
+
+
+</body>
+
+
+
+
+
+
+
+</html>
